@@ -4,6 +4,9 @@ class Investment extends React.Component {
     return (
       <tr>
         <td>
+          {this.props.investment.category}
+        </td>
+        <td>
           {this.props.investment.name}
         </td>
         <td>
