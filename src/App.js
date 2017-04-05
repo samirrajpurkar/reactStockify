@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Investment from './Investment';
+import Investments from './Investments';
 
 // import logo from './logo.svg';
 // import './App.css';
@@ -20,12 +20,16 @@ import Investment from './Investment';
 // //   }
 // // }
 
-var investment = {category: 'Equity', price: '$49.99', stocked: true, name: 'US Technology'};
+var investments = [
+{category: 'Equity', price: '$49.99', stocked: true, name: 'US Technology'},
+{category: 'Income', price: '$39.99', stocked: true, name: 'PIMCO'},
+{category: 'Commodity', price: '$29.99', stocked: true, name: 'United Gold'}
+];
 
 class App extends Component {
   render() {
     return (
-          <Investment investment = {investment}/>
+          <Investments investments={investments}/>
     );
   }
 }
