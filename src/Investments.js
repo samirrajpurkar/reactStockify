@@ -15,6 +15,7 @@ class Investments extends React.Component {
             <th>Category</th>
             <th>Name</th>
             <th>Price</th>
+            <th>Current Price</th>
           </tr>
         </thead>
           <tbody>{rows}</tbody>
