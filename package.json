@@ -6,6 +6,9 @@
     "react-scripts": "0.9.5"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
+    "electron": "^1.6.2",
+    "nightmare": "^2.10.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
