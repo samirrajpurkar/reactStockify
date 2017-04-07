@@ -5,12 +5,12 @@ class Investment extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentprice: new Date()
+      currentprice: 0
     };
   }
 
   componentDidMount() {
-    this.timerID = setInterval(() => this.updateCurrentPrice(), 30000);
+    this.timerID = setInterval(() => this.updateCurrentPrice(), 5000);
   }
 
   componentWillUnmount() {
@@ -18,7 +18,15 @@ class Investment extends React.Component {
   }
 
   updateCurrentPrice() {
-    this.setState({currentprice: new Date()});
+    //this.setState({currentprice: new Date()});
+    var that = this;
+    fetch('http://127.0.0.1:8888/', {mode: 'cors'})
+      .then(function (response) {
+        return response.text();
+      }). then(function (text) {
+        console.log(text);
+        that.setState({currentprice: text});
+      });
   }
 
   render() {
@@ -34,7 +42,7 @@ class Investment extends React.Component {
           {this.props.investment.price}
         </td>
         <td>
-          {this.state.currentprice.toLocaleTimeString()}
+          {this.state.currentprice}
         </td>
       </tr>
     );
