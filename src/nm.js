@@ -6,10 +6,11 @@ getCurrentPrice = function (code, callback) {
     .goto('https://www.bloomberg.com/quote/' + code)
     .evaluate(function () {
       return (
-      [
-        String(document.querySelector('.name').innerHTML),
+      // [
+      //   String(document.querySelector('.name').innerHTML),
+      //   String(document.querySelector('.price').innerHTML)
+      // ]
         String(document.querySelector('.price').innerHTML)
-      ]
       );
     })
     .end()
