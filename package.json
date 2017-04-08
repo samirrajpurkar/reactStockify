@@ -7,8 +7,9 @@
   },
   "dependencies": {
     "child_process": "^1.0.2",
+    "csv": "^1.1.1",
     "electron": "^1.6.2",
-    "json-update": "^3.0.0",
+    "moment": "^2.18.1",
     "nightmare": "^2.10.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
