@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
+import { InvestmentForm } from './components/investment/InvestmentForm';
 
 class App extends Component {
   constructor() {
@@ -31,9 +32,10 @@ class App extends Component {
           <h2>Stockify</h2>
         </div>
         <div className="Stockify-App">
-          <form>
-            <input type="text" onChange={this.handleInputChange} value={this.state.currentInvestment}/>
-          </form>
+          <InvestmentForm
+            handleInputChange={this.handleInputChange}
+            currentInvestment={this.state.currentInvestment}
+          />
           <div className="Stockify-List">
             <ul>
               {this.state.investments.map(investment =>
