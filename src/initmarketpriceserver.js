@@ -1,13 +1,11 @@
 var exec = require('child_process').exec;
-//var child = exec('node ./nm.js');
-//var child = exec('node ./server.js');
 var child = exec('node ./marketpriceserver.js');
-child.stdout.on('data', function(data) {
-    console.log('stdout: ' + data);
+child.stdout.on('data', function (data) {
+  console.log('stdout: ' + data);
 });
-child.stderr.on('data', function(data) {
-    console.log('stdout: ' + data);
+child.stderr.on('data', function (data) {
+  console.log('stdout: ' + data);
 });
-child.on('close', function(code) {
-    console.log('closing code: ' + code);
+child.on('close', function (code) {
+  console.log('closing code: ' + code);
 });
