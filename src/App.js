@@ -11,8 +11,16 @@ class App extends Component {
         {id: 1, category: 'Equity', price: '$49.99', name: 'US Technology', isComplete: true},
         {id: 2, category: 'Income', price: '$39.99', name: 'PIMCO', isComplete: false},
         {id: 3, category: 'Commodity', price: '$29.99', name: 'United Gold', isComplete: false}
-      ]
+      ],
+      currentInvestment: ''
     };
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(evt) {
+    this.setState({
+      currentInvestment: evt.target.value
+    });
   }
 
   render() {
@@ -24,7 +32,7 @@ class App extends Component {
         </div>
         <div className="Stockify-App">
           <form>
-            <input type="text"/>
+            <input type="text" onChange={this.handleInputChange} value={this.state.currentInvestment}/>
           </form>
           <div className="Stockify-List">
             <ul>
