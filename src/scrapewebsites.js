@@ -4,6 +4,7 @@ var fs = require('fs');
 var moment = require('moment');
 var stringify = require('csv-stringify');
 var file = '../data/marketprice.csv';
+var isin = process.argv[2];
 
 getCurrentPrice = function (code, callback) {
   nightmare
@@ -19,7 +20,6 @@ getCurrentPrice = function (code, callback) {
     })
     .end()
       .then(function (result) {
-        console.log(result);
         var input = [{date: new Date(), code: code, price: result}];
 
         var stringifier = stringify(input, {
@@ -29,44 +29,29 @@ getCurrentPrice = function (code, callback) {
             }
           }
         }, function (err, output) {
-          console.log(output);
           fs.appendFile(file,
             output,
             'utf8',
             callback(err, output));
         });
-        // fs.appendFile('../data/marketprice.json',
-        //   result,
-        //   callback(err, result));
-        // fs.readFile('../data/marketprice.json', function (err, data) {
-        //   if (err) {
-        //     fs.writeFile('../data/marketprice.json', JSON.stringify({date: new Date(), code: code, price: result}), function (e) {
-        //       console.log(e);
-        //     });
-        //   }
-        //   var json = JSON.parse(data);
-        //   json.push({date: new Date(), code: code, price: result});
-        //   fs.writeFile('../data/marketprice.json', JSON.stringify(json), function (writeerror) {
-        //     if (writeerror) {
-        //       throw writeerror;
-        //     }
-        //     callback(writeerror, result);
-        //   });
-        // });
       })
       .catch(function (error) {
-        return callback(error, 'Error');
+        return callback(error, 'Error in webScraping....');
       });
 };
 
-getCurrentPrice('FSIDVDU:SP', function (error, result) {
+getCurrentPrice(isin, function (error, result) {
   if (!error) {
-    console.log(result);
-    return result;
+    // A bit of hack to re-extract current price from the
+    // formated output -> 2017-04-08,FSIDVDU:SP,1.2044
+    var currentprice = String(result).split(',')[2];
+
+    // PLEASE DO NOT REMOVE THIS CONSOLE.LOG STATEMENT
+    console.log(currentprice);
+    // This output is what is send back by the http server to the client.
+    return currentprice;
   }
   else {
-    //console.log(error);
     return error;
   }
 });
-//getCurrentPrice.apply(nightmare, ['FSIDVDU:SP']);
