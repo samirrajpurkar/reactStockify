@@ -49,12 +49,6 @@ class App extends Component {
   }
 }
 
-// var investments = [
-// {category: 'Equity', price: '$49.99', stocked: true, name: 'US Technology'},
-// {category: 'Income', price: '$39.99', stocked: true, name: 'PIMCO'},
-// {category: 'Commodity', price: '$29.99', stocked: true, name: 'United Gold'}
-// ];
-
 // class App extends Component {
 //   render() {
 //     return (
