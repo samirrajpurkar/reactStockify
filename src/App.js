@@ -2,20 +2,39 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
-import { InvestmentForm } from './components/investment/InvestmentForm';
+import { InvestmentForm, Investments } from './components/investment';
+import { addInvestment, generateId } from './lib/investmentHelpers';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       investments: [
-        {id: 1, category: 'Equity', price: '$49.99', name: 'US Technology', isComplete: true},
-        {id: 2, category: 'Income', price: '$39.99', name: 'PIMCO', isComplete: false},
-        {id: 3, category: 'Commodity', price: '$29.99', name: 'United Gold', isComplete: false}
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
       ],
       currentInvestment: ''
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const newId = generateId();
+    const newInvestment = {
+      id: newId,
+      category: 'Equity',
+      price: 10.00,
+      name: this.state.currentInvestment,
+      isComplete: false
+    };
+    const updatedInvestments = addInvestment(this.state.investments, newInvestment);
+    this.setState({
+      investments: updatedInvestments,
+      currentInvestment: ''
+    });
   }
 
   handleInputChange(evt) {
@@ -35,16 +54,9 @@ class App extends Component {
           <InvestmentForm
             handleInputChange={this.handleInputChange}
             currentInvestment={this.state.currentInvestment}
+            handleSubmit={this.handleSubmit}
           />
-          <div className="Stockify-List">
-            <ul>
-              {this.state.investments.map(investment =>
-                <li key={investment.id}>
-                  <input type="checkbox" defaultChecked={investment.isComplete}/>{investment.name}
-                </li>
-              )}
-            </ul>
-          </div>
+          <Investments investments={this.state.investments}/>
         </div>
       </div>
     );
