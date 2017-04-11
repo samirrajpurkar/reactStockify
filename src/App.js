@@ -14,7 +14,9 @@ class App extends Component {
         {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
         {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
       ],
-      currentInvestment: ''
+      currentInvestment: {
+        name: ''
+      }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,19 +29,23 @@ class App extends Component {
       id: newId,
       category: 'Equity',
       price: 10.00,
-      name: this.state.currentInvestment,
+      name: this.state.currentInvestment.name,
       isComplete: false
     };
     const updatedInvestments = addInvestment(this.state.investments, newInvestment);
     this.setState({
       investments: updatedInvestments,
-      currentInvestment: ''
+      currentInvestment: {
+        name: ''
+      }
     });
   }
 
   handleInputChange(evt) {
     this.setState({
-      currentInvestment: evt.target.value
+      currentInvestment: {
+        name: evt.target.value
+      }
     });
   }
 
@@ -53,7 +59,7 @@ class App extends Component {
         <div className="Stockify-App">
           <InvestmentForm
             handleInputChange={this.handleInputChange}
-            currentInvestment={this.state.currentInvestment}
+            currentInvestmentName={this.state.currentInvestment.name}
             handleSubmit={this.handleSubmit}
           />
           <Investments investments={this.state.investments}/>
