@@ -3,6 +3,7 @@ import React from 'react';
 export const InvestmentForm = (props) => (
             <form onSubmit={props.handleSubmit}>
               <input type="text"
+                     name="somethingname"
                      onChange={props.handleInputChange}
                      value={props.currentInvestmentName}/>
             </form>
