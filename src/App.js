@@ -42,10 +42,11 @@ class App extends Component {
   }
 
   handleInputChange(evt) {
+    var partialState = {};
+    partialState[evt.target.name] = evt.target.value;
+
     this.setState({
-      currentInvestment: {
-        name: evt.target.value
-      }
+      currentInvestment: partialState
     });
   }
 
