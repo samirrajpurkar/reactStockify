@@ -14,9 +14,8 @@ class App extends Component {
         {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
         {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
       ],
-      currentInvestment: {
-        name: ''
-      }
+      investmentName: '',
+      category: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,27 +26,45 @@ class App extends Component {
     const newId = generateId();
     const newInvestment = {
       id: newId,
-      category: 'Equity',
+      category: this.state.category,
       price: 10.00,
-      name: this.state.currentInvestment.name,
+      name: this.state.investmentName,
       isComplete: false
     };
+    console.log(newInvestment);
+
     const updatedInvestments = addInvestment(this.state.investments, newInvestment);
     this.setState({
       investments: updatedInvestments,
-      currentInvestment: {
-        name: ''
-      }
+      investmentName: '',
+      category: ''
     });
   }
 
   handleInputChange(evt) {
-    var partialState = {};
-    partialState[evt.target.name] = evt.target.value;
+    // console.log(evt.target.name);
+    // var partialState = {};
+    // partialState[evt.target.name] = evt.target.value;
 
-    this.setState({
-      currentInvestment: partialState
-    });
+    // this.setState({
+    //   currentInvestment: partialState
+    // });
+    const target = evt.target;
+    const value = target.value;
+    const name = target.name;
+    // this.setState({
+    //   name: value
+    // });
+    if (name === 'investmentName') {
+      this.setState({
+        investmentName: value
+      });
+    }
+    if (name === 'category') {
+      this.setState({
+        category: value
+      });
+    }
   }
 
   render() {
@@ -60,7 +77,8 @@ class App extends Component {
         <div className="Stockify-App">
           <InvestmentForm
             handleInputChange={this.handleInputChange}
-            currentInvestmentName={this.state.currentInvestment.name}
+            investmentName={this.state.investmentName}
+            category={this.state.category}
             handleSubmit={this.handleSubmit}
           />
           <Investments investments={this.state.investments}/>
