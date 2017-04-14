@@ -14,8 +14,9 @@ class App extends Component {
         {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
         {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
       ],
+      category: 'Equity',
+      price: 0.0,
       investmentName: '',
-      category: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,7 +28,7 @@ class App extends Component {
     const newInvestment = {
       id: newId,
       category: this.state.category,
-      price: 10.00,
+      price: this.state.price,
       name: this.state.investmentName,
       isComplete: false
     };
@@ -36,35 +37,19 @@ class App extends Component {
     const updatedInvestments = addInvestment(this.state.investments, newInvestment);
     this.setState({
       investments: updatedInvestments,
+      category: 'Equity',
+      price: 0.0,
       investmentName: '',
-      category: ''
     });
   }
 
   handleInputChange(evt) {
-    // console.log(evt.target.name);
-    // var partialState = {};
-    // partialState[evt.target.name] = evt.target.value;
-
-    // this.setState({
-    //   currentInvestment: partialState
-    // });
     const target = evt.target;
     const value = target.value;
     const name = target.name;
-    // this.setState({
-    //   name: value
-    // });
-    if (name === 'investmentName') {
-      this.setState({
-        investmentName: value
-      });
-    }
-    if (name === 'category') {
-      this.setState({
-        category: value
-      });
-    }
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -77,8 +62,9 @@ class App extends Component {
         <div className="Stockify-App">
           <InvestmentForm
             handleInputChange={this.handleInputChange}
-            investmentName={this.state.investmentName}
             category={this.state.category}
+            price={this.state.price}
+            investmentName={this.state.investmentName}
             handleSubmit={this.handleSubmit}
           />
           <Investments investments={this.state.investments}/>
@@ -87,13 +73,5 @@ class App extends Component {
     );
   }
 }
-
-// class App extends Component {
-//   render() {
-//     return (
-//           <Investments investments={investments}/>
-//     );
-//   }
-// }
 export default App;
 
