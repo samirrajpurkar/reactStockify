@@ -1,0 +1,11 @@
+.main {
+  display: inline-block;
+  width: 250px;
+  text-align: left;
+}
+
+.others {
+  display: inline-block;
+  width: 70px;
+  text-align: left;
+}
