@@ -1,10 +1,21 @@
 import React from 'react';
+import './Investment.css';
 
 export const Investment = (props) => {
   return (
-    <li>
-      <input type="checkbox" defaultChecked={props.isComplete}/>{props.name}
-    </li>
+    <div className="Investment">
+      <li>
+        <span className="main">
+          <input type="checkbox" defaultChecked={props.isComplete}/>{props.name}
+        </span>
+        <span className="others">
+          {props.price}
+        </span>
+        <span className="others">
+          {props.category}
+        </span>
+      </li>
+    </div>
   );
 };
 
