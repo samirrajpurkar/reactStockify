@@ -1,21 +1,41 @@
 import React from 'react';
+import './InvestmentForm.css';
 
 export const InvestmentForm = (props) => (
             <form onSubmit={props.handleSubmit}>
               <div>
-                <input type="text"
-                       name="investmentName"
-                       onChange={props.handleInputChange}
-                       value={props.investmentName}/>
+                <label>
+                  Category
+                </label>
+                  <select
+                         name="category"
+                         onChange={props.handleInputChange}>
+                    <option value="Equity">Equity</option>
+                    <option value="Bond">Bond</option>
+                    <option value="Commodities">Commodities</option>
+                  </select>
+              </div>
+
+              <div>
+                <label>
+                  Price
+                </label>
+                  <input type="text"
+                         name="price"
+                         onChange={props.handleInputChange}
+                         value={props.price}/>
               </div>
               <div>
-                <input type="text"
-                       name="category"
-                       onChange={props.handleInputChange}
-                       value={props.category}/>
+                <label>
+                  Investnemt Name
+                </label>
+                  <input type="text"
+                         name="investmentName"
+                         onChange={props.handleInputChange}
+                         value={props.investmentName}/>
               </div>
               <div>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit" className="button" />
               </div>
             </form>
           );
