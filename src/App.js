@@ -15,11 +15,20 @@ class App extends Component {
         {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
       ],
       category: 'Equity',
-      price: 0.0,
+      price: '',
       investmentName: '',
+      errorMessage: ''
     };
+    this.handleEmptySubmit = this.handleEmptySubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleEmptySubmit(evt) {
+    evt.preventDefault();
+    this.setState({
+      errorMessage: 'Please enter Price / Name'
+    });
   }
 
   handleSubmit(evt) {
@@ -32,14 +41,15 @@ class App extends Component {
       name: this.state.investmentName,
       isComplete: false
     };
-    console.log(newInvestment);
 
     const updatedInvestments = addInvestment(this.state.investments, newInvestment);
+
     this.setState({
       investments: updatedInvestments,
       category: 'Equity',
-      price: 0.0,
+      price: '',
       investmentName: '',
+      errorMessage: ''
     });
   }
 
@@ -53,6 +63,8 @@ class App extends Component {
   }
 
   render() {
+    const submitHandler = (this.state.price && this.state.investmentName) ?
+                            this.handleSubmit : this.handleEmptySubmit;
     return (
       <div className="App">
         <div className="App-header">
@@ -60,12 +72,13 @@ class App extends Component {
           <h2>Stockify</h2>
         </div>
         <div className="Stockify-App">
+          {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
           <InvestmentForm
             handleInputChange={this.handleInputChange}
             category={this.state.category}
             price={this.state.price}
             investmentName={this.state.investmentName}
-            handleSubmit={this.handleSubmit}
+            handleSubmit={submitHandler}
           />
           <Investments investments={this.state.investments}/>
         </div>
