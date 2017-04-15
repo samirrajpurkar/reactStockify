@@ -40,8 +40,9 @@ export const InvestmentForm = (props) => (
             </form>
           );
 
-// InvestmentForm.propTypes = {
-//   currentInvestmentName: React.PropTypes.string.isRequired,
-//   handleInputChange: React.PropTypes.func.isRequired,
-//   handleSubmit: React.PropTypes.func.isRequired
-// };
+InvestmentForm.propTypes = {
+  price: React.PropTypes.string.isRequired,
+  investmentName: React.PropTypes.string.isRequired,
+  handleInputChange: React.PropTypes.func.isRequired,
+  handleSubmit: React.PropTypes.func.isRequired
+};
