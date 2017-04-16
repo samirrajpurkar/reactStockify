@@ -6,32 +6,26 @@ import { InvestmentForm, Investments } from './components/investment';
 import { addInvestment, generateId } from './lib/investmentHelpers';
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      investments: [
-        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
-        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
-        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
-      ],
-      category: 'Equity',
-      price: '',
-      investmentName: '',
-      errorMessage: ''
-    };
-    this.handleEmptySubmit = this.handleEmptySubmit.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
+  state = {
+    investments: [
+      {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+      {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+      {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+    ],
+    category: 'Equity',
+    price: '',
+    investmentName: '',
+    errorMessage: ''
+  };
 
-  handleEmptySubmit(evt) {
+  handleEmptySubmit = (evt) => {
     evt.preventDefault();
     this.setState({
       errorMessage: 'Please enter Price / Name'
     });
   }
 
-  handleSubmit(evt) {
+  handleSubmit = (evt) => {
     evt.preventDefault();
     const newId = generateId();
     const newInvestment = {
@@ -53,7 +47,7 @@ class App extends Component {
     });
   }
 
-  handleInputChange(evt) {
+  handleInputChange = (evt) => {
     const target = evt.target;
     const value = target.value;
     const name = target.name;
