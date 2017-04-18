@@ -1,4 +1,11 @@
-import { addInvestment, findById } from './investmentHelpers';
+import { addInvestment, findById, toggleInvestment } from './investmentHelpers';
+
+test('toggleInvestment should toggle this isComplete property of investment', () => {
+  const startInvestment = {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: false};
+  const expected = {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true};
+  const result = toggleInvestment(startInvestment);
+  expect(result).toEqual(expected);
+});
 
 test('findById should return the expected item from the array', () => {
   const startInvesments = [
