@@ -1,4 +1,38 @@
-import { addInvestment, findById, toggleInvestment } from './investmentHelpers';
+import { addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
+
+test('updateInvestment should not mutate the original array', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const updatedInvestment = {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: true};
+  const result = updateInvestment(startInvesments, updatedInvestment);
+  expect(result).not.toBe(updateInvestment);
+});
+
+test('updateInvestment should update investment by id', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const updatedInvestment = {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: true};
+  const expected = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: true},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+
+  const result = updateInvestment(startInvesments, updatedInvestment);
+  expect(result).toEqual(expected);
+});
+
+test('toggleInvestment should not mutate the original investment', () => {
+  const startInvestment = {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: false};
+  const result = toggleInvestment(startInvestment);
+  expect(result).not.toBe(startInvestment);
+});
 
 test('toggleInvestment should toggle this isComplete property of investment', () => {
   const startInvestment = {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: false};
