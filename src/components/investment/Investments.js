@@ -6,7 +6,9 @@ export const Investments = (props) => {
           <div className="Stockify-List">
             <ul>
               {props.investments.map(investment =>
-                <Investment key={investment.id} {...investment}/>
+                <Investment
+                handleToggle={props.handleToggle}
+                key={investment.id} {...investment}/>
                 )
               }
             </ul>
