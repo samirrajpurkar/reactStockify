@@ -6,7 +6,9 @@ export const Investment = (props) => {
     <div className="Investment">
       <li>
         <span className="main">
-          <input type="checkbox" defaultChecked={props.isComplete}/>{props.name}
+          <input type="checkbox"
+            onChange={() => props.handleToggle(props.id)}
+            checked={props.isComplete}/>{props.name}
         </span>
         <span className="others">
           {props.price}
