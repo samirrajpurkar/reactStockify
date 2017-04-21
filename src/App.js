@@ -3,7 +3,7 @@ import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
 import { InvestmentForm, Investments } from './components/investment';
-import { addInvestment, generateId, findById, toogleInvesment, updatedInvestment } from './lib/investmentHelpers';
+import { addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 
 class App extends Component {
   state = {
@@ -20,8 +20,8 @@ class App extends Component {
 
   handleToggle = (id) => {
     const investment = findById(id, this.state.investments);
-    const toggled = toogleInvesment(investment);
-    const updatedInvestments = updatedInvestment(this.state.investments, toggled);
+    const toggled = toggleInvestment(investment);
+    const updatedInvestments = updateInvestment(this.state.investments, toggled);
     this.setState({investments: updatedInvestments});
   }
 
@@ -81,7 +81,9 @@ class App extends Component {
             investmentName={this.state.investmentName}
             handleSubmit={submitHandler}
           />
-          <Investments investments={this.state.investments}/>
+          <Investments
+            handleToggle={this.handleToggle}
+            investments={this.state.investments}/>
         </div>
       </div>
     );
