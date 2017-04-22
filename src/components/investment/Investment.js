@@ -1,13 +1,17 @@
 import React from 'react';
 import './Investment.css';
+import {partial} from '../../lib/utils';
 
 export const Investment = (props) => {
+  //const handleToggle = () => props.handleToggle(props.id);
+  //const handleToggle = props.handleToggle.bind(null, props.id);
+  const handleToggle = partial(props.handleToggle, props.id);
   return (
     <div className="Investment">
       <li>
         <span className="main">
           <input type="checkbox"
-            onChange={() => props.handleToggle(props.id)}
+            onChange={handleToggle}
             checked={props.isComplete}/>{props.name}
         </span>
         <span className="others">
