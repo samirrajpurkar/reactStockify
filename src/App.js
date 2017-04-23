@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 import { InvestmentForm, Investments } from './components/investment';
 import { addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
+import {pipe, partial} from './lib/utils';
 
 class App extends Component {
   state = {
@@ -19,9 +20,17 @@ class App extends Component {
   };
 
   handleToggle = (id) => {
-    const investment = findById(id, this.state.investments);
-    const toggled = toggleInvestment(investment);
-    const updatedInvestments = updateInvestment(this.state.investments, toggled);
+    // const investment = findById(id, this.state.investments);
+    // const toggled = toggleInvestment(investment);
+    // const updatedInvestments = updateInvestment(this.state.investments, toggled);
+    // this.setState({investments: updatedInvestments});
+    // Refactor the code using pipe utility
+    const getUpdatedInvestments = pipe(
+            findById,
+            toggleInvestment,
+            partial(updateInvestment, this.state.investments)
+            );
+    const updatedInvestments = getUpdatedInvestments(id, this.state.investments);
     this.setState({investments: updatedInvestments});
   }
 
