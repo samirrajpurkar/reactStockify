@@ -1,4 +1,36 @@
-import { addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
+import { removeInvestment, addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
+
+test('removeInvestment should remove an item by id', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const targetId = 2;
+  const expectedInvestments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const result = removeInvestment(startInvesments, targetId);
+
+  expect(result).toEqual(expectedInvestments);
+});
+
+test('removeInvestment should not mutate the original array', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const targetId = 2;
+  const expectedInvestments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const result = removeInvestment(startInvesments, targetId);
+
+  expect(result).not.toBe(expectedInvestments);
+});
 
 test('updateInvestment should not mutate the original array', () => {
   const startInvesments = [
