@@ -6,9 +6,14 @@ export const Investment = (props) => {
   //const handleToggle = () => props.handleToggle(props.id);
   //const handleToggle = props.handleToggle.bind(null, props.id);
   const handleToggle = partial(props.handleToggle, props.id);
+  const handleRemove = partial(props.handleRemove, props.id);
+
   return (
     <div className="Investment">
       <li>
+        <span className="removeInvestment">
+          <a href="#" onClick={handleRemove}>X</a>
+        </span>
         <span className="main">
           <input type="checkbox"
             onChange={handleToggle}
