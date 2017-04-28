@@ -3,7 +3,7 @@ import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
 import { InvestmentForm, Investments } from './components/investment';
-import { addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
+import { removeInvestment, addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
 
 class App extends Component {
@@ -18,6 +18,12 @@ class App extends Component {
     investmentName: '',
     errorMessage: ''
   };
+
+  handleRemove = (id, evt) => {
+    evt.preventDefault();
+    const updatedInvestments = removeInvestment(this.state.investments, id);
+    this.setState({investments: updatedInvestments});
+  }
 
   handleToggle = (id) => {
     // const investment = findById(id, this.state.investments);
@@ -91,8 +97,10 @@ class App extends Component {
             handleSubmit={submitHandler}
           />
           <Investments
+            handleRemove={this.handleRemove}
             handleToggle={this.handleToggle}
-            investments={this.state.investments}/>
+            investments={this.state.investments}
+            />
         </div>
       </div>
     );
