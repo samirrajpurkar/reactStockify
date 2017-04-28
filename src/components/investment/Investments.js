@@ -7,6 +7,7 @@ export const Investments = (props) => {
             <ul>
               {props.investments.map(investment =>
                 <Investment
+                handleRemove={props.handleRemove}
                 handleToggle={props.handleToggle}
                 key={investment.id} {...investment}/>
                 )
