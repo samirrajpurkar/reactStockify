@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
-import { InvestmentForm, Investments } from './components/investment';
+import { Footer, InvestmentForm, Investments } from './components/investment';
 import { removeInvestment, addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
 
@@ -102,6 +102,7 @@ class App extends Component {
             investments={this.state.investments}
             />
         </div>
+        <Footer />
       </div>
     );
   }
