@@ -1,3 +1,11 @@
+export const removeInvestment = (investments, id) => {
+  const removeIndex = investments.findIndex(investment => investment.id === id);
+  return  [
+    ...investments.slice(0, removeIndex),
+    ...investments.slice(removeIndex + 1)
+  ];
+};
+
 export const addInvestment = (investments, newinvestment) => [...investments, newinvestment];
 
 export const updateInvestment = (list, investment) => {
