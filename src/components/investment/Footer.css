@@ -2,3 +2,7 @@
   padding-right: 5px;
   padding-right: 5px;
 }
+.Footer a.activeRoute {
+  font-weight: bold;
+  color: black;
+} 
