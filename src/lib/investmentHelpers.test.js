@@ -1,5 +1,16 @@
 import { removeInvestment, addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
 
+test('filterInvestments should return all investments for the root route', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const result = filterInvestments(startInvesments, '/');
+  expect(result).toEqual(startInvesments);
+});
+
+
 test('removeInvestment should remove an item by id', () => {
   const startInvesments = [
         {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
