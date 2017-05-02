@@ -3,7 +3,8 @@ import logo from './logo.svg';
 //import Investments from './Investments';
 import './App.css';
 import { Footer, InvestmentForm, Investments } from './components/investment';
-import { removeInvestment, addInvestment, generateId, findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
+import { filterInvestments, removeInvestment, addInvestment, generateId,
+  findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
 
 class App extends Component {
@@ -18,6 +19,10 @@ class App extends Component {
     investmentName: '',
     errorMessage: ''
   };
+
+  static contextTypes = {
+    route: React.PropTypes.string
+  }
 
   handleRemove = (id, evt) => {
     evt.preventDefault();
@@ -99,7 +104,9 @@ class App extends Component {
           <Investments
             handleRemove={this.handleRemove}
             handleToggle={this.handleToggle}
-            investments={this.state.investments}
+            investments={
+              filterInvestments(this.state.investments, this.context.route)
+            }
             />
         </div>
         <Footer />
