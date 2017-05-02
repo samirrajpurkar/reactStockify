@@ -1,3 +1,14 @@
+export const filterInvestments = (investments, route) => {
+  switch (route) {
+  case '/active':
+    return investments.filter(investment => investment.isComplete === false);
+  case '/complete':
+    return investments.filter(investment => investment.isComplete === true);
+  default:
+    return investments;
+  }
+};
+
 export const removeInvestment = (investments, id) => {
   const removeIndex = investments.findIndex(investment => investment.id === id);
   return  [
