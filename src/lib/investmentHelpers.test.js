@@ -1,4 +1,4 @@
-import { removeInvestment, addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
+import { filterInvestments, removeInvestment, addInvestment, findById, toggleInvestment, updateInvestment } from './investmentHelpers';
 
 test('filterInvestments should return all investments for the root route', () => {
   const startInvesments = [
@@ -10,6 +10,32 @@ test('filterInvestments should return all investments for the root route', () =>
   expect(result).toEqual(startInvesments);
 });
 
+test('filterInvestments should only return completed items for the complete route', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const expected = [
+    {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true}
+  ];
+  const result = filterInvestments(startInvesments, '/complete');
+  expect(result).toEqual(expected);
+});
+
+test('filterInvestments should only return incompleted items for the active route', () => {
+  const startInvesments = [
+        {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
+        {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+        {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const expected = [
+      {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
+      {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
+  ];
+  const result = filterInvestments(startInvesments, '/active');
+  expect(result).toEqual(expected);
+});
 
 test('removeInvestment should remove an item by id', () => {
   const startInvesments = [
