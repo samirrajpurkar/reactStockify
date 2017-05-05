@@ -19,6 +19,13 @@
       "category": "Commodity", 
       "price": 29.99, 
       "name": "United Gold", 
+      "isComplete": false
+    },
+    {
+      "id": 4, 
+      "category": "Equity", 
+      "price": 30.99, 
+      "name": "First State", 
       "isComplete": false}
   ]
 }
