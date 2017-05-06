@@ -6,14 +6,11 @@ import { Footer, InvestmentForm, Investments } from './components/investment';
 import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
+import { loadInvestments } from './lib/investmentService';
 
 class App extends Component {
   state = {
-    investments: [
-      {id: 1, category: 'Equity', price: 49.99, name: 'US Technology', isComplete: true},
-      {id: 2, category: 'Income', price: 39.99, name: 'PIMCO', isComplete: false},
-      {id: 3, category: 'Commodity', price: 29.99, name: 'United Gold', isComplete: false}
-    ],
+    investments: [],
     category: 'Equity',
     price: '',
     investmentName: '',
@@ -22,6 +19,11 @@ class App extends Component {
 
   static contextTypes = {
     route: React.PropTypes.string
+  }
+
+  componentDidMount() {
+    loadInvestments()
+      .then(investments => this.setState({investments}));
   }
 
   handleRemove = (id, evt) => {
