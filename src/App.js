@@ -6,7 +6,7 @@ import { Footer, InvestmentForm, Investments } from './components/investment';
 import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
-import { loadInvestments } from './lib/investmentService';
+import { loadInvestments, createInvestment } from './lib/investmentService';
 
 class App extends Component {
   state = {
@@ -74,6 +74,9 @@ class App extends Component {
       investmentName: '',
       errorMessage: ''
     });
+
+    createInvestment(newInvestment)
+      .then((investment) => console.log(JSON.stringify(investment)));
   }
 
   handleInputChange = (evt) => {
