@@ -1,31 +1,53 @@
 {
   "investments": [
-    { 
-      "id": 1, 
-      "category": "Equity", 
-      "price": 49.99, 
-      "name": "US Technology", 
+    {
+      "id": 1,
+      "category": "Equity",
+      "price": 49.99,
+      "name": "US Technology",
       "isComplete": true
     },
     {
-      "id": 2, 
-      "category": "Income", 
-      "price": 39.99, 
-      "name": "PIMCO", 
+      "id": 2,
+      "category": "Income",
+      "price": 39.99,
+      "name": "PIMCO",
       "isComplete": false
     },
     {
-      "id": 3, 
-      "category": "Commodity", 
-      "price": 29.99, 
-      "name": "United Gold", 
+      "id": 3,
+      "category": "Commodity",
+      "price": 29.99,
+      "name": "United Gold",
       "isComplete": false
     },
     {
-      "id": 4, 
-      "category": "Equity", 
-      "price": 30.99, 
-      "name": "First State", 
-      "isComplete": false}
+      "id": 4,
+      "category": "Equity",
+      "price": 30.99,
+      "name": "First State",
+      "isComplete": false
+    },
+    {
+      "id": 6300,
+      "category": "Equity",
+      "price": "10",
+      "name": "it works",
+      "isComplete": false
+    },
+    {
+      "id": 5448,
+      "category": "Equity",
+      "price": "100",
+      "name": "Finally",
+      "isComplete": false
+    },
+    {
+      "id": 72474,
+      "category": "Equity",
+      "price": "10",
+      "name": "hello",
+      "isComplete": false
+    }
   ]
 }
