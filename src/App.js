@@ -6,7 +6,7 @@ import { Footer, InvestmentForm, Investments } from './components/investment';
 import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
-import { loadInvestments, createInvestment } from './lib/investmentService';
+import { loadInvestments, createInvestment, saveInvestment, deleteInvestment } from './lib/investmentService';
 
 class App extends Component {
   state = {
@@ -14,7 +14,8 @@ class App extends Component {
     category: 'Equity',
     price: '',
     investmentName: '',
-    errorMessage: ''
+    errorMessage: '',
+    message: ''
   };
 
   static contextTypes = {
@@ -30,6 +31,8 @@ class App extends Component {
     evt.preventDefault();
     const updatedInvestments = removeInvestment(this.state.investments, id);
     this.setState({investments: updatedInvestments});
+    deleteInvestment(id)
+      .then(() => this.showTempMessage('Investment Deleted'));
   }
 
   handleToggle = (id) => {
@@ -38,13 +41,13 @@ class App extends Component {
     // const updatedInvestments = updateInvestment(this.state.investments, toggled);
     // this.setState({investments: updatedInvestments});
     // Refactor the code using pipe utility
-    const getUpdatedInvestments = pipe(
-            findById,
-            toggleInvestment,
-            partial(updateInvestment, this.state.investments)
-            );
-    const updatedInvestments = getUpdatedInvestments(id, this.state.investments);
+    const getToggledInvestment = pipe(findById, toggleInvestment);
+    const updatedInvestment = getToggledInvestment(id, this.state.investments);
+    const getUpdatedInvestments = partial(updateInvestment, this.state.investments);
+    const updatedInvestments = getUpdatedInvestments(updatedInvestment);
     this.setState({investments: updatedInvestments});
+    saveInvestment(updatedInvestment)
+      .then(() => this.showTempMessage('Investment Updated'));
   }
 
   handleEmptySubmit = (evt) => {
@@ -52,6 +55,11 @@ class App extends Component {
     this.setState({
       errorMessage: 'Please enter Price / Name'
     });
+  }
+
+  showTempMessage = (msg) => {
+    this.setState({message: msg});
+    setTimeout(() => this.setState({message: ''}),2500);
   }
 
   handleSubmit = (evt) => {
@@ -76,7 +84,7 @@ class App extends Component {
     });
 
     createInvestment(newInvestment)
-      .then((investment) => console.log(JSON.stringify(investment)));
+      .then(() => this.showTempMessage('New Investment Added.'));
   }
 
   handleInputChange = (evt) => {
@@ -99,6 +107,7 @@ class App extends Component {
         </div>
         <div className="Stockify-App">
           {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
+          {this.state.message && <span className="success">{this.state.message}</span>}
           <InvestmentForm
             handleInputChange={this.handleInputChange}
             category={this.state.category}
