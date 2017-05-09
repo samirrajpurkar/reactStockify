@@ -1,6 +1,7 @@
-var Nightmare = require('nightmare');
+//var Nightmare = require('nightmare');
+import {Nightmare} from 'nightmare';
 
-var getPrice = (code) => {
+export const getMarketPrice = (code) => {
   new Nightmare()
     .goto('https://www.bloomberg.com/quote/' + String(code))
     .evaluate(function () {
@@ -15,4 +16,4 @@ var getPrice = (code) => {
     });
 };
 
-getPrice('NKY:IND');
+//getMarketPrice('NKY:IND');
