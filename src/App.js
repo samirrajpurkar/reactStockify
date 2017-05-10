@@ -7,7 +7,6 @@ import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
 import { loadInvestments, createInvestment, saveInvestment, deleteInvestment } from './lib/investmentService';
-import {getMarketPrice} from './lib/priceService';
 
 class App extends Component {
   state = {
