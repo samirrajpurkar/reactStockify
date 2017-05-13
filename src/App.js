@@ -7,6 +7,7 @@ import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
 import { loadInvestments, createInvestment, saveInvestment, deleteInvestment } from './lib/investmentService';
+import {getPriceFromBloomberg} from './lib/price';
 
 class App extends Component {
   state = {
@@ -15,7 +16,9 @@ class App extends Component {
     price: '',
     investmentName: '',
     errorMessage: '',
-    message: ''
+    message: '',
+    invesment_code: '',
+    current_price: ''
   };
 
   static contextTypes = {
@@ -33,6 +36,13 @@ class App extends Component {
     this.setState({investments: updatedInvestments});
     deleteInvestment(id)
       .then(() => this.showTempMessage('Investment Deleted'));
+  }
+
+  handlePrice = (code) => {
+    getPriceFromBloomberg(code)
+      .then(result => {
+        this.setState({current_price: result.price});
+      });
   }
 
   handleToggle = (id) => {
@@ -64,27 +74,30 @@ class App extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
+    const that = this;
     const newId = generateId();
     const newInvestment = {
       id: newId,
-      category: this.state.category,
-      price: this.state.price,
-      name: this.state.investmentName,
-      isComplete: false
+      category: that.state.category,
+      price: that.state.price,
+      name: that.state.investmentName,
+      isComplete: false,
+      invesment_code: 'NKY:IND',
+      current_price: ''
     };
+    console.log(newInvestment);
+    const updatedInvestments = addInvestment(that.state.investments, newInvestment);
 
-    const updatedInvestments = addInvestment(this.state.investments, newInvestment);
-
-    this.setState({
+    that.setState({
       investments: updatedInvestments,
       category: 'Equity',
       price: '',
       investmentName: '',
-      errorMessage: ''
+      errorMessage: '',
     });
 
     createInvestment(newInvestment)
-      .then(() => this.showTempMessage('New Investment Added.'));
+       .then(() => that.showTempMessage('New Investment Added.'));
   }
 
   handleInputChange = (evt) => {
@@ -102,7 +115,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo"/>
           <h2>Stockify</h2>
         </div>
         <div className="Stockify-App">
