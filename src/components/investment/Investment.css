@@ -1,12 +1,12 @@
 .main {
   display: inline-block;
-  width: 250px;
+  width: 300px;
   text-align: left;
 }
 
 .others {
   display: inline-block;
-  width: 70px;
+  width: 80px;
   text-align: left;
 }
 
