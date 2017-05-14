@@ -82,7 +82,7 @@ class App extends Component {
       price: that.state.price,
       name: that.state.investmentName,
       isComplete: false,
-      invesment_code: 'NKY:IND',
+      invesment_code: that.state.invesment_code,
       current_price: ''
     };
     console.log(newInvestment);
@@ -93,6 +93,7 @@ class App extends Component {
       category: 'Equity',
       price: '',
       investmentName: '',
+      invesment_code: '',
       errorMessage: '',
     });
 
@@ -126,6 +127,7 @@ class App extends Component {
             category={this.state.category}
             price={this.state.price}
             investmentName={this.state.investmentName}
+            investment_code={this.state.invesment_code}
             handleSubmit={submitHandler}
           />
           <Investments
