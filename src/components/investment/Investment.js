@@ -14,10 +14,16 @@ export class Investment extends Component {
     };
   }
 
-  removeComma = (s) => (s.replace(',',''));
+  removeComma = (s) => {
+    if (s.indexOf(',') === -1) {
+      return s;
+    } else {
+      return s.replace(',','');
+    }
+  };
 
   componentDidMount() {
-    getPriceFromBloomberg(this.props.investment_code)
+    getPriceFromBloomberg(this.props.invesment_code)
       .then(result => {
         this.setState({marketprice: this.removeComma(result.price)});
       });
@@ -45,7 +51,7 @@ export class Investment extends Component {
             {this.state.marketprice}
           </span>
           <span className="others">
-            {parseFloat(this.props.price) - parseFloat(this.state.marketprice)}
+            {(parseFloat(this.state.marketprice) - parseFloat(this.props.price)).toFixed(2)}
           </span>
         </li>
       </div>
