@@ -34,6 +34,17 @@ export const InvestmentForm = (props) => (
                          onChange={props.handleInputChange}
                          value={props.investmentName}/>
               </div>
+
+              <div>
+                <label>
+                  Investnemt Code
+                </label>
+                  <input type="text"
+                         name="invesment_code"
+                         onChange={props.handleInputChange}
+                         value={props.invesment_code}/>
+              </div>
+
               <div>
                 <input type="submit" value="Submit" className="button" />
               </div>
