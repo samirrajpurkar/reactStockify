@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-//import Investments from './Investments';
+// Logo to be replaced.
+//import logo from './logo.svg';
+//<img src={logo} className="App-logo" alt="logo"/>
 import './App.css';
 import { Footer, InvestmentForm, Investments } from './components/investment';
 import { filterInvestments, removeInvestment, addInvestment, generateId,
@@ -114,29 +115,36 @@ class App extends Component {
     const submitHandler = (this.state.price && this.state.investmentName) ?
                             this.handleSubmit : this.handleEmptySubmit;
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <h2>Stockify</h2>
-        </div>
-        <div className="Stockify-App">
-          {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
-          {this.state.message && <span className="success">{this.state.message}</span>}
-          <InvestmentForm
-            handleInputChange={this.handleInputChange}
-            category={this.state.category}
-            price={this.state.price}
-            investmentName={this.state.investmentName}
-            investment_code={this.state.invesment_code}
-            handleSubmit={submitHandler}
-          />
-          <Investments
-            handleRemove={this.handleRemove}
-            handleToggle={this.handleToggle}
-            investments={
-              filterInvestments(this.state.investments, this.context.route)
-            }
-            />
+      <div>
+        <div>
+          <nav className="navbar navbar-light" id="navbar">
+             <a className="navbar-brand" href="#">STOCKIFY</a>
+          </nav>
+          <div className="row">
+              <div className="col-4">
+                <div className="row">
+                  {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
+                  {this.state.message && <span className="success">{this.state.message}</span>}
+                </div>
+                <InvestmentForm
+                  handleInputChange={this.handleInputChange}
+                  category={this.state.category}
+                  price={this.state.price}
+                  investmentName={this.state.investmentName}
+                  investment_code={this.state.invesment_code}
+                  handleSubmit={submitHandler}
+                />
+              </div>
+              <div className="col-8">
+                <Investments
+                  handleRemove={this.handleRemove}
+                  handleToggle={this.handleToggle}
+                  investments={
+                    filterInvestments(this.state.investments, this.context.route)
+                  }
+                  />
+              </div>
+            </div>
         </div>
         <Footer />
       </div>
