@@ -31,28 +31,34 @@ export class Investment extends Component {
 
   render() {
     return (
-      <div className="Investment">
+      <div>
         <li>
-          <span className="removeInvestment">
-            <a href="#" onClick={this.handleRemove}>X</a>
-          </span>
-          <span className="main">
-            <input type="checkbox"
-              onChange={this.handleToggle}
-              checked={this.props.isComplete}/>{this.props.name}
-          </span>
-          <span className="others">
-            {this.props.price}
-          </span>
-          <span className="others">
-            {this.props.category}
-          </span>
-          <span className="others">
-            {this.state.marketprice}
-          </span>
-          <span className="others">
-            {(parseFloat(this.state.marketprice) - parseFloat(this.props.price)).toFixed(2)}
-          </span>
+          <div className="card">
+            <div className="card-block">
+              <h4 class="card-title">
+               {this.props.name}
+              </h4>
+              <h6 class="card-subtitle mb-2 text-muted">
+                <small>{this.props.category}</small>
+              </h6>
+              <div className="row">
+                  <div className="col-4">
+                    {this.props.price || 'C.P.'}
+                  </div>
+                  <div className="col-4">
+                    {this.state.marketprice || 'M.P.' }
+                  </div>
+                <div className="col-4">
+                  {(parseFloat(this.state.marketprice || 0.00) - parseFloat(this.props.price || 'P.L.')).toFixed(2)}
+                </div>
+              </div>
+              <a href="#" className="card-link" onClick={this.handleRemove}>Delete</a>
+
+              <input type="checkbox"
+                  onChange={this.handleToggle}
+                  checked={this.props.isComplete}/> Complete
+            </div>
+          </div>
         </li>
       </div>
     );
