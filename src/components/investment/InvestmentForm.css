@@ -1,7 +1,7 @@
 form {
   border: solid;
   border-width: 1px;
-  border-color: #f7f7f9;
-  padding: 1rem;
+  border-color: rgba(0,0,0,.125);
+  padding: 2rem;
 }
 
