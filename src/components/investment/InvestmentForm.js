@@ -31,7 +31,7 @@ export const InvestmentForm = (props) => (
                            value={props.investmentName}
                            className="form-control"
                            id="investmentName"
-                           placeholder="Invesment Name"
+                           placeholder="Investment Name"
                            />
                 </div>
               </div>
