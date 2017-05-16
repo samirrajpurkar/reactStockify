@@ -3,7 +3,7 @@ import {Investment} from './Investment';
 
 export const Investments = (props) => {
   return (
-          <div className="Stockify-List">
+          <div>
             <ul>
               {props.investments.map(investment =>
                 <Investment
