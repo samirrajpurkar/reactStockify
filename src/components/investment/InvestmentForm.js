@@ -50,6 +50,19 @@ export const InvestmentForm = (props) => (
               </div>
 
               <div>
+                <div className="form-group row">
+                    <input type="text"
+                           name="region"
+                           onChange={props.handleInputChange}
+                           value={props.region}
+                           className="form-control"
+                           id="region"
+                           placeholder="Region example: China, India,..."
+                           />
+                </div>
+              </div>
+
+              <div>
                 <input type="submit" value="Submit" className="btn btn-secondary btn-sm" />
               </div>
             </form>
