@@ -19,7 +19,8 @@ class App extends Component {
     errorMessage: '',
     message: '',
     invesment_code: '',
-    current_price: ''
+    current_price: '',
+    region: ''
   };
 
   static contextTypes = {
@@ -75,31 +76,34 @@ class App extends Component {
 
   handleSubmit = (evt) => {
     evt.preventDefault();
-    const that = this;
     const newId = generateId();
     const newInvestment = {
       id: newId,
-      category: that.state.category,
-      price: that.state.price,
-      name: that.state.investmentName,
+      category: this.state.category,
+      price: this.state.price,
+      name: this.state.investmentName,
       isComplete: false,
-      invesment_code: that.state.invesment_code,
-      current_price: ''
+      invesment_code: this.state.invesment_code,
+      current_price: '',
+      region: this.state.region
     };
-    console.log(newInvestment);
-    const updatedInvestments = addInvestment(that.state.investments, newInvestment);
+    const updatedInvestments = addInvestment(this.state.investments, newInvestment);
 
-    that.setState({
+    this.setState({
       investments: updatedInvestments,
       category: 'Equity',
       price: '',
       investmentName: '',
-      invesment_code: '',
       errorMessage: '',
+      message: '',
+      invesment_code: '',
+      current_price: '',
+      region: ''
     });
+    console.log(this.state);
 
     createInvestment(newInvestment)
-       .then(() => that.showTempMessage('New Investment Added.'));
+       .then(() => this.showTempMessage('New Investment Added.'));
   }
 
   handleInputChange = (evt) => {
@@ -119,6 +123,7 @@ class App extends Component {
         <div>
           <nav className="navbar navbar-light" id="navbar">
              <a className="navbar-brand" href="#">STOCKIFY</a>
+             <Footer />
           </nav>
           <div className="row">
               <div className="col-4">
@@ -146,7 +151,6 @@ class App extends Component {
               </div>
             </div>
         </div>
-        <Footer />
       </div>
     );
   }
