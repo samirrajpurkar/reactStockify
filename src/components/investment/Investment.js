@@ -15,7 +15,7 @@ export class Investment extends Component {
   }
 
   removeComma = (s) => {
-    if (s.indexOf(',') === -1) {
+    if (s && s.indexOf(',') === -1) {
       return s;
     } else {
       return s.replace(',','');
@@ -35,9 +35,9 @@ export class Investment extends Component {
         <li>
           <div className="card">
             <div className="card-block">
-              <h4 class="card-title">
+              <h6 class="card-title">
                {this.props.name}
-              </h4>
+              </h6>
               <h6 class="card-subtitle mb-2 text-muted">
                 <small>{this.props.category}</small>
               </h6>
