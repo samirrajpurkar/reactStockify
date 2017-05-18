@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Investment.css';
-import {partial} from '../../lib/utils';
+import {partial, removeComma } from '../../lib/utils';
 import {getPriceFromBloomberg} from '../../lib/price';
 
 export class Investment extends Component {
@@ -13,14 +13,6 @@ export class Investment extends Component {
       marketprice: props.current_price
     };
   }
-
-  removeComma = (s) => {
-    if (s && s.indexOf(',') === -1) {
-      return s;
-    } else {
-      return s.replace(',','');
-    }
-  };
 
   componentDidMount() {
     getPriceFromBloomberg(this.props.invesment_code)
