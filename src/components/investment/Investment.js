@@ -17,7 +17,7 @@ export class Investment extends Component {
   componentDidMount() {
     getPriceFromBloomberg(this.props.invesment_code)
       .then(result => {
-        this.setState({marketprice: this.removeComma(result.price)});
+        this.setState({marketprice: removeComma(result.price)});
       });
   }
 
@@ -27,10 +27,10 @@ export class Investment extends Component {
         <li>
           <div className="card">
             <div className="card-block">
-              <h6 class="card-title">
+              <h6 className="card-title">
                {this.props.name}
               </h6>
-              <h6 class="card-subtitle mb-2 text-muted">
+              <h6 className="card-subtitle mb-2 text-muted">
                 <small>{this.props.category}</small>
               </h6>
               <div className="row">

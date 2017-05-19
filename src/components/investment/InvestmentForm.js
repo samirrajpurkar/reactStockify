@@ -71,6 +71,7 @@ export const InvestmentForm = (props) => (
 InvestmentForm.propTypes = {
   price: React.PropTypes.string.isRequired,
   investmentName: React.PropTypes.string.isRequired,
+  region: React.PropTypes.string.isRequired,
   handleInputChange: React.PropTypes.func.isRequired,
   handleSubmit: React.PropTypes.func.isRequired
 };

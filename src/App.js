@@ -100,7 +100,6 @@ class App extends Component {
       current_price: '',
       region: ''
     });
-    console.log(this.state);
 
     createInvestment(newInvestment)
        .then(() => this.showTempMessage('New Investment Added.'));
@@ -136,7 +135,8 @@ class App extends Component {
                   category={this.state.category}
                   price={this.state.price}
                   investmentName={this.state.investmentName}
-                  investment_code={this.state.invesment_code}
+                  invesment_code={this.state.invesment_code}
+                  region={this.state.region}
                   handleSubmit={submitHandler}
                 />
               </div>
