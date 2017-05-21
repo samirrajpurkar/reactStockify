@@ -18,7 +18,7 @@ export class Investment extends Component {
     getPriceFromBloomberg(this.props.invesment_code)
       .then(result => {
         this.setState({marketprice: removeComma(result.price)});
-      });
+      }).catch(error => console.log('Error getting price ...', error));
   }
 
   render() {
