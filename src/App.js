@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import logo from './logo.svg';
 //<img src={logo} className="App-logo" alt="logo"/>
 import './App.css';
-import { Footer, InvestmentForm, Investments } from './components/investment';
+import { InvestmentForm, Investments } from './components/investment';
 import { filterInvestments, removeInvestment, addInvestment, generateId,
   findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
 import {pipe, partial} from './lib/utils';
@@ -23,9 +23,9 @@ class App extends Component {
     region: ''
   };
 
-  static contextTypes = {
-    route: React.PropTypes.string
-  }
+  // static contextTypes = {
+  //   route: React.PropTypes.string
+  // }
 
   componentDidMount() {
     loadInvestments()
@@ -121,15 +121,15 @@ class App extends Component {
       <div>
         <div>
           <nav className="navbar navbar-light" id="navbar">
-             <a className="navbar-brand" href="#">STOCKIFY</a>
-             <Footer />
+             <a className="navbar-brand" href="#">sTOCKIFY</a>
           </nav>
+          <div className="col">
+            {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
+            {this.state.message && <span className="success">{this.state.message}</span>}
+          </div>
           <div className="row">
               <div className="col-4">
-                <div className="row">
-                  {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
-                  {this.state.message && <span className="success">{this.state.message}</span>}
-                </div>
+
                 <InvestmentForm
                   handleInputChange={this.handleInputChange}
                   category={this.state.category}
