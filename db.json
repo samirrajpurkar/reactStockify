@@ -1,48 +1,21 @@
 {
   "investments": [
     {
-      "id": 76323,
+      "id": 62680,
       "category": "Equity",
-      "price": "10",
-      "name": "M",
-      "isComplete": true,
-      "invesment_code": "NKY:IND",
+      "price": "1.0889",
+      "name": "First State Global Growth Funds - Dividend Advantage",
+      "isComplete": false,
+      "invesment_code": "FSIDVDU:SP",
       "current_price": ""
     },
     {
-      "id": 2477,
+      "id": 87225,
       "category": "Equity",
-      "price": "100",
-      "name": "Really",
+      "price": "19000",
+      "name": "Nikkei 225",
       "isComplete": false,
-      "invesment_code": "NKY:IND",
-      "current_price": ""
-    },
-    {
-      "id": 79818,
-      "category": "Equity",
-      "price": "10",
-      "name": "N",
-      "isComplete": false,
-      "invesment_code": "NKY:IND",
-      "current_price": ""
-    },
-    {
-      "id": 86089,
-      "category": "Equity",
-      "price": "10",
-      "name": "mm",
-      "isComplete": false,
-      "invesment_code": "NKY:IND",
-      "current_price": ""
-    },
-    {
-      "id": 48918,
-      "category": "Equity",
-      "price": "100",
-      "name": "new",
-      "isComplete": false,
-      "invesment_code": "NKY:IND",
+      "invesment_code": "NKY:IND  ",
       "current_price": ""
     }
   ]
