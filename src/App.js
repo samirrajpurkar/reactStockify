@@ -1,30 +1,154 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import Signup from './components/auth/Signup';
+import React, { Component } from 'react';
+// Logo to be replaced.
+//import logo from './logo.svg';
+//<img src={logo} className="App-logo" alt="logo"/>
+import './App.css';
+import { InvestmentForm, Investments, ShowMessage } from './components/investment';
+import { filterInvestments, removeInvestment, addInvestment, generateId,
+  findById, toggleInvestment,updateInvestment} from './lib/investmentHelpers';
+import {pipe, partial} from './lib/utils';
+import { loadInvestments, createInvestment, saveInvestment, deleteInvestment } from './lib/investmentService';
+import {getPriceFromBloomberg} from './lib/price';
 
-const Home = () => (<h1>Home</h1>);
-const About = () => (<h1>About</h1>);
-const Contact = () => (<h1>Contact</h1>);
+class App extends Component {
+  state = {
+    investments: [],
+    category: 'Equity',
+    price: '',
+    investmentName: '',
+    errorMessage: '',
+    message: '',
+    invesment_code: '',
+    current_price: '',
+    region: ''
+  };
 
-const Links = () => (
-  <nav>
-    <Link to="/">Home</Link>
-    <Link to="/signup">Signup</Link>
-    <Link to={{pathname: '/about'}}>About</Link>
-    <Link to="/contact">Contact</Link>
-  </nav>
-);
+  // static contextTypes = {
+  //   route: React.PropTypes.string
+  // }
 
-const App = () => (
-  <Router>
-    <div>
-        <Links />
-        <Route exact path="/" component={Home} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/about" component={About} />
-        <Route path="/contact" component={Contact} />
-    </div>
-  </Router>
-);
+  componentDidMount() {
+    loadInvestments()
+      .then(investments => this.setState({investments}));
+  }
 
+  handleRemove = (id, evt) => {
+    evt.preventDefault();
+    const updatedInvestments = removeInvestment(this.state.investments, id);
+    this.setState({investments: updatedInvestments});
+    deleteInvestment(id)
+      .then(() => this.showTempMessage('Investment Deleted'));
+  }
+
+  handlePrice = (code) => {
+    getPriceFromBloomberg(code)
+      .then(result => {
+        this.setState({current_price: result.price});
+      });
+  }
+
+  handleToggle = (id) => {
+    // const investment = findById(id, this.state.investments);
+    // const toggled = toggleInvestment(investment);
+    // const updatedInvestments = updateInvestment(this.state.investments, toggled);
+    // this.setState({investments: updatedInvestments});
+    // Refactor the code using pipe utility
+    const getToggledInvestment = pipe(findById, toggleInvestment);
+    const updatedInvestment = getToggledInvestment(id, this.state.investments);
+    const getUpdatedInvestments = partial(updateInvestment, this.state.investments);
+    const updatedInvestments = getUpdatedInvestments(updatedInvestment);
+    this.setState({investments: updatedInvestments});
+    saveInvestment(updatedInvestment)
+      .then(() => this.showTempMessage('Investment Updated'));
+  }
+
+  handleEmptySubmit = (evt) => {
+    evt.preventDefault();
+    this.setState({
+      errorMessage: 'Please enter Price / Name'
+    });
+  }
+
+  showTempMessage = (msg) => {
+    this.setState({message: msg});
+    setTimeout(() => this.setState({message: ''}),2500);
+  }
+
+  handleSubmit = (evt) => {
+    evt.preventDefault();
+    const newId = generateId();
+    const newInvestment = {
+      id: newId,
+      category: this.state.category,
+      price: this.state.price,
+      name: this.state.investmentName,
+      isComplete: false,
+      invesment_code: this.state.invesment_code,
+      current_price: '',
+      region: this.state.region
+    };
+    const updatedInvestments = addInvestment(this.state.investments, newInvestment);
+
+    this.setState({
+      investments: updatedInvestments,
+      category: 'Equity',
+      price: '',
+      investmentName: '',
+      errorMessage: '',
+      message: '',
+      invesment_code: '',
+      current_price: '',
+      region: ''
+    });
+
+    createInvestment(newInvestment)
+       .then(() => this.showTempMessage('New Investment Added.'));
+  }
+
+  handleInputChange = (evt) => {
+    const target = evt.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  render() {
+    const submitHandler = (this.state.price && this.state.investmentName) ?
+                            this.handleSubmit : this.handleEmptySubmit;
+    return (
+      <div>
+        <div>
+          <ShowMessage errorMessage={this.state.errorMessage} message={this.state.message}/>
+
+          <div className="row">
+              <div className="col-4">
+                <InvestmentForm
+                  handleInputChange={this.handleInputChange}
+                  category={this.state.category}
+                  price={this.state.price}
+                  investmentName={this.state.investmentName}
+                  invesment_code={this.state.invesment_code}
+                  region={this.state.region}
+                  handleSubmit={submitHandler}
+                />
+              </div>
+
+              <div className="col-8">
+                <Investments
+                  handleRemove={this.handleRemove}
+                  handleToggle={this.handleToggle}
+                  investments={
+                    filterInvestments(this.state.investments, this.context.route)
+                  }
+                  />
+              </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 export default App;
+

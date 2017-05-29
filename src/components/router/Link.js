@@ -8,11 +8,12 @@ export class Link extends Component {
 
   handleClick = (evt) => {
     evt.preventDefault();
-    //history.pushState(null,'',this.props.to); //history.pushState(state, title, location in the browser)
-    this.context.linkHandler(this.props.to);
+    history.pushState(null,'',this.props.to); //history.pushState(state, title, location in the browser)
+    //this.context.linkHandler(this.props.to);
   }
 
   render() {
+    console.log(this.props.children);
     const activeRouteClass = this.context.route === this.props.to ? 'activeRoute' : '';
     return <a className={activeRouteClass} href="#" onClick={this.handleClick}>{this.props.children}</a>;
   }
